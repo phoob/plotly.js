@@ -149,6 +149,12 @@ function initBase(gd, pa, sa, calcTraces) {
                 if(hasBase) cd[j].hasB = 1;
             }
         }
+
+        if(trace.type === 'waterfall') {
+            for(j = 0; j < cd.length; j++) {
+                cd[j].b += cd[j].sum;
+            }
+        }
     }
 }
 
