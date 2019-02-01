@@ -122,9 +122,8 @@ module.exports = function plot(gd, plotinfo, cdbar, barLayer) {
             }
 
             var shape;
-
             if(isWaterfall && cd[i].isReport === false) {
-                shape = 'M' + x0 + ',' + y0 + 'L' + (0.5 * (x1 + x0)) + ',' + y1 + 'V' + y0 + 'Z';
+                shape = 'M' + x0 + ',' + y0 + 'L' + (0.5 * (x1 + x0)) + ',' + y1 + 'L' + x1 + ',' + y0 + 'Z';
             } else {
                 shape = 'M' + x0 + ',' + y0 + 'V' + y1 + 'H' + x1 + 'V' + y0 + 'Z';
             }
