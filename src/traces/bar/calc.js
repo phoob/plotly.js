@@ -14,10 +14,19 @@ var colorscaleCalc = require('../../components/colorscale/calc');
 var arraysToCalcdata = require('./arrays_to_calcdata');
 var calcSelection = require('../scatter/calc_selection');
 
+function includes(list, item) {
+    for(var i = 0; i < list.length; i++) {
+        if(list[i] === item) return true;
+    }
+    return false;
+}
+
 module.exports = function calc(gd, trace) {
     var xa = Axes.getFromId(gd, trace.xaxis || 'x');
     var ya = Axes.getFromId(gd, trace.yaxis || 'y');
-    var size, pos;
+    var size, pos, i;
+
+    var isWaterfall = trace.type === 'waterfall';
 
     if(trace.orientation === 'h') {
         size = xa.makeCalcdata(trace, 'x');
@@ -32,19 +41,45 @@ module.exports = function calc(gd, trace) {
     var cd = new Array(serieslen);
 
     // set position and size (as well as for waterfall total size)
-    for(var i = 0; i < serieslen; i++) {
+    for(i = 0; i < serieslen; i++) {
         cd[i] = {
             p: pos[i],
             s: size[i]
         };
 
-        if(trace.type === 'waterfall') {
+        if(isWaterfall) {
             cd[i].sum = (i === 0) ? 0 : cd[i - 1].sum + cd[i - 1].s;
         }
 
         if(trace.ids) {
             cd[i].id = String(trace.ids[i]);
         }
+    }
+
+    if(isWaterfall) {
+        var newCD = [];
+        var n = 0;
+        for(i = 0; i < serieslen; i++) {
+            newCD[n] = {
+                p: cd[i].p,
+                s: cd[i].s,
+                sum: cd[i].sum,
+                isReport: false
+            }; n++;
+
+            if(includes(trace.report.after, i)) {
+                // console.log("Found at: ", i);
+                newCD[n] = {
+                    p: cd[i].p + 0.5,
+                    s: cd[i].s,
+                    sum: cd[i].sum,
+                    isReport: true
+                }; n++;
+            }
+        }
+        // console.log("newCD=", newCD);
+
+        cd = newCD;
     }
 
     // auto-z and autocolorscale if applicable

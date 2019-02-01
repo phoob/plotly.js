@@ -18,7 +18,7 @@
         "name": "first",
         "type": "waterfall",
         "report" : {
-          "after": [2, 5],
+          "after": [1, 4],
           "label": ["intermediate sum", "total"]
         },
         "orientation": "v"
@@ -41,7 +41,7 @@
         "name": "second",
         "type": "waterfall",
         "report" : {
-          "after": [2, 5],
+          "after": [1, 2, 4],
           "label": ["intermediate sum", "total"]
         },
         "orientation": "v"
