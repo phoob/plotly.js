@@ -11,9 +11,9 @@
 
 var Waterfall = {};
 
-Waterfall.attributes = require('../bar/attributes');
+Waterfall.attributes = require('./attributes');
 Waterfall.layoutAttributes = require('../bar/layout_attributes');
-Waterfall.supplyDefaults = require('../bar/defaults');
+Waterfall.supplyDefaults = require('./defaults');
 Waterfall.supplyLayoutDefaults = require('../bar/layout_defaults');
 Waterfall.calc = require('../bar/calc');
 Waterfall.crossTraceCalc = require('../bar/cross_trace_calc').crossTraceCalc;

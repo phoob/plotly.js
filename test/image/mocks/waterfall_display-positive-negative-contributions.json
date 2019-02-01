@@ -16,7 +16,12 @@
           5
         ],
         "name": "first",
-        "type": "waterfall"
+        "type": "waterfall",
+        "report" : {
+          "after": [2, 5],
+          "label": ["intermediate sum", "total"]
+        },
+        "orientation": "v"
       },
       {
         "x": [
@@ -34,7 +39,12 @@
           -2
         ],
         "name": "second",
-        "type": "waterfall"
+        "type": "waterfall",
+        "report" : {
+          "after": [2, 5],
+          "label": ["intermediate sum", "total"]
+        },
+        "orientation": "v"
       }
     ],
     "layout": {
