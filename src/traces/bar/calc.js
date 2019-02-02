@@ -59,26 +59,26 @@ module.exports = function calc(gd, trace) {
     if(isWaterfall) {
         var newCD = [];
         var n = 0;
+        var nReports = 0;
         for(i = 0; i < serieslen; i++) {
             newCD[n] = {
-                p: cd[i].p,
+                p: cd[i].p + nReports,
                 s: cd[i].s,
                 sum: cd[i].sum,
                 isReport: false
             }; n++;
 
             if(includes(trace.report.after, i)) {
-                // console.log("Found at: ", i);
+                nReports++;
+
                 newCD[n] = {
-                    p: cd[i].p + 0.5,
+                    p: cd[i].p + nReports,
                     s: cd[i].s,
                     sum: cd[i].sum,
                     isReport: true
                 }; n++;
             }
         }
-        // console.log("newCD=", newCD);
-
         cd = newCD;
     }
 

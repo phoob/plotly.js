@@ -1,63 +1,63 @@
 {
-    "data": [
-      {
-        "x": [
-          "A",
-          "B",
-          "C",
-          "D",
-          "E"
-        ],
-        "y": [
-          1,
-          1,
-          2,
-          3,
-          5
-        ],
-        "name": "first",
-        "type": "waterfall",
-        "report" : {
-          "after": [1, 4],
-          "label": ["intermediate sum", "total"]
-        },
-        "orientation": "v"
+  "data": [
+    {
+      "x": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "y": [
+        1,
+        1,
+        2,
+        3,
+        5
+      ],
+      "name": "first",
+      "type": "waterfall",
+      "report" : {
+        "after": [2, 4],
+        "label": ["intermediate sum", "total"]
       },
-      {
-        "x": [
-          "A",
-          "B",
-          "C",
-          "D",
-          "E"
-        ],
-        "y": [
-          1,
-          2,
-          4,
-          -1,
-          -2
-        ],
-        "name": "second",
-        "type": "waterfall",
-        "report" : {
-          "after": [1, 2, 4],
-          "label": ["intermediate sum", "total"]
-        },
-        "orientation": "v"
-      }
-    ],
-    "layout": {
-      "xaxis": {
-        "type": "category",
-        "autorange": true
+      "orientation": "v"
+    },
+    {
+      "x": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "y": [
+        1,
+        2,
+        4,
+        -1,
+        -2
+      ],
+      "name": "second",
+      "type": "waterfall",
+      "report" : {
+        "after": [2, 4],
+        "label": ["intermediate sum", "total"]
       },
-      "yaxis": {
-        "type": "linear",
-        "autorange": true
-      },
-      "height": 450,
-      "width": 1100,
-      "autosize": true
+      "orientation": "v"
     }
+  ],
+  "layout": {
+    "xaxis": {
+      "type": "category",
+      "autorange": true
+    },
+    "yaxis": {
+      "type": "linear",
+      "autorange": true
+    },
+    "height": 450,
+    "width": 1100,
+    "autosize": true
   }
+}
