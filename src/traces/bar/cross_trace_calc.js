@@ -152,7 +152,7 @@ function initBase(gd, pa, sa, calcTraces) {
 
         if(trace.type === 'waterfall') {
             for(j = 0; j < cd.length; j++) {
-                if(cd[j].isReport === true) {
+                if(cd[j].isFall === true) {
                     cd[j].s += cd[j].sum;
                 } else {
                     cd[j].b += cd[j].sum;

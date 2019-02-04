@@ -21,6 +21,6 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
-    coerce('report.text');
-    coerce('report.after');
+    coerce('falls.text');
+    coerce('falls.after');
 };

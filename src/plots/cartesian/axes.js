@@ -612,10 +612,32 @@ axes.calcTicks = function calcTicks(ax) {
     ax._prevDateHead = '';
     ax._inCalcTicks = true;
 
+    var i;
     var ticksOut = new Array(vals.length);
-    for(var i = 0; i < vals.length; i++) ticksOut[i] = axes.tickText(ax, vals[i]);
+    for(i = 0; i < vals.length; i++) ticksOut[i] = axes.tickText(ax, vals[i]);
 
     ax._inCalcTicks = false;
+
+    if(ax._falls) {
+        var newTicks = [];
+        var n = 0;
+        var nFalls = 0;
+        for(i = 0; i < ticksOut.length; i++) {
+            newTicks[n] = ticksOut[i];
+            newTicks[n].x = ticksOut[i].x + nFalls;
+            n++;
+
+            var idFound = Lib.includes(ax._falls.after, i);
+            if(idFound !== -1) {
+                nFalls++;
+                newTicks[n] = Lib.extendDeepAll({}, newTicks[n - 1]);
+                newTicks[n].x++;
+                newTicks[n].text = Array.isArray(ax._falls.text) ? ax._falls.text[idFound] : ax._falls.text;
+                n++;
+            }
+        }
+        ticksOut = newTicks;
+    }
 
     return ticksOut;
 };

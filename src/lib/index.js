@@ -1125,3 +1125,10 @@ lib.pseudoRandom = function() {
     if(Math.abs(randSeed - lastVal) < 429496729) return lib.pseudoRandom();
     return randSeed / 4294967296;
 };
+
+lib.includes = function(list, item) {
+    for(var i = 0; i < list.length; i++) {
+        if(list[i] === item) return i;
+    }
+    return -1;
+};

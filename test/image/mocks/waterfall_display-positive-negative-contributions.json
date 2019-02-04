@@ -9,17 +9,17 @@
         "E"
       ],
       "y": [
-        1,
-        1,
+        10,
         2,
         3,
-        5
+        5,
+        8
       ],
       "name": "first",
       "type": "waterfall",
-      "report" : {
+      "falls" : {
         "after": [2, 4],
-        "label": ["intermediate sum", "total"]
+        "text": ["intermediate sum", "total sum"]
       },
       "orientation": "v"
     },
@@ -32,17 +32,17 @@
         "E"
       ],
       "y": [
-        1,
+        20,
+        8,
         2,
-        4,
-        -1,
-        -2
+        -4,
+        -10
       ],
       "name": "second",
       "type": "waterfall",
-      "report" : {
+      "falls" : {
         "after": [2, 4],
-        "label": ["intermediate sum", "total"]
+        "text": ["intermediate sum", "total sum"]
       },
       "orientation": "v"
     }

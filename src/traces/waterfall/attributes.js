@@ -52,7 +52,7 @@ module.exports = {
 
     _deprecated: barAttrs._deprecated,
 
-    report: {
+    falls: {
         editType: 'calc',
 
         after: {

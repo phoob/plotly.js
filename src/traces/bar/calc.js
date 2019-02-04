@@ -13,13 +13,7 @@ var hasColorscale = require('../../components/colorscale/helpers').hasColorscale
 var colorscaleCalc = require('../../components/colorscale/calc');
 var arraysToCalcdata = require('./arrays_to_calcdata');
 var calcSelection = require('../scatter/calc_selection');
-
-function includes(list, item) {
-    for(var i = 0; i < list.length; i++) {
-        if(list[i] === item) return true;
-    }
-    return false;
-}
+var includes = require('../../lib').includes;
 
 module.exports = function calc(gd, trace) {
     var xa = Axes.getFromId(gd, trace.xaxis || 'x');
@@ -31,9 +25,15 @@ module.exports = function calc(gd, trace) {
     if(trace.orientation === 'h') {
         size = xa.makeCalcdata(trace, 'x');
         pos = ya.makeCalcdata(trace, 'y');
+        if(isWaterfall) {
+            ya._fallsAfter = trace.falls;
+        }
     } else {
         size = ya.makeCalcdata(trace, 'y');
         pos = xa.makeCalcdata(trace, 'x');
+        if(isWaterfall) {
+            xa._falls = trace.falls;
+        }
     }
 
     // create the "calculated data" to plot
@@ -59,23 +59,23 @@ module.exports = function calc(gd, trace) {
     if(isWaterfall) {
         var newCD = [];
         var n = 0;
-        var nReports = 0;
+        var nFalls = 0;
         for(i = 0; i < serieslen; i++) {
             newCD[n] = {
-                p: cd[i].p + nReports,
+                p: cd[i].p + nFalls,
                 s: cd[i].s,
                 sum: cd[i].sum,
-                isReport: false
+                isFall: false
             }; n++;
 
-            if(includes(trace.report.after, i)) {
-                nReports++;
+            if(includes(trace.falls.after, i) !== -1) {
+                nFalls++;
 
                 newCD[n] = {
-                    p: cd[i].p + nReports,
+                    p: cd[i].p + nFalls,
                     s: cd[i].s,
                     sum: cd[i].sum,
-                    isReport: true
+                    isFall: true
                 }; n++;
             }
         }
