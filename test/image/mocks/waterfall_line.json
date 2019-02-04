@@ -1,0 +1,59 @@
+{
+  "data": [
+    {
+      "x": [
+        0,
+        1,
+        2,
+        3,
+        "intermediate sum",
+        4,
+        5,
+        "total sum"
+      ],
+      "y": [
+        1,
+        2,
+        3,
+        -2,
+        null,
+        3,
+        -1,
+        null
+      ],
+      "type": "waterfall",
+      "orientation": "v"
+    }, {
+      "x": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "y": [
+        1,
+        2,
+        3,
+        -2,
+        3,
+        -1
+      ],
+      "type": "scatter"
+    }
+  ],
+  "layout": {
+    "xaxis": {
+      "type": "category",
+      "autorange": true
+    },
+    "yaxis": {
+      "type": "linear",
+      "autorange": true
+    },
+    "height": 600,
+    "width": 900,
+    "autosize": true
+  }
+}

@@ -39,6 +39,7 @@ module.exports = function plot(gd, plotinfo, cdbar, barLayer) {
         var trace = cd0.trace;
 
         var isWaterfall = trace.type === 'waterfall';
+        var isVertical = trace.orientation === 'v';
 
         if(!plotinfo.isRangePlot) cd0.node3 = plotGroup;
 
@@ -123,7 +124,11 @@ module.exports = function plot(gd, plotinfo, cdbar, barLayer) {
 
             var shape;
             if(isWaterfall && cd[i].isFall === false) {
-                shape = 'M' + x0 + ',' + y0 + 'L' + (0.5 * (x1 + x0)) + ',' + y1 + 'L' + x1 + ',' + y0 + 'Z';
+                if(isVertical) {
+                    shape = 'M' + x0 + ',' + y0 + 'L' + (0.5 * (x1 + x0)) + ',' + y1 + 'L' + x1 + ',' + y0 + 'Z';
+                } else {
+                    shape = 'M' + x0 + ',' + y0 + 'L' + x1 + ',' + (0.5 * (y1 + y0)) + 'L' + x0 + ',' + y1 + 'Z';
+                }
             } else {
                 shape = 'M' + x0 + ',' + y0 + 'V' + y1 + 'H' + x1 + 'V' + y0 + 'Z';
             }
