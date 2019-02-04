@@ -17,7 +17,9 @@ var calcSelection = require('../scatter/calc_selection');
 module.exports = function calc(gd, trace) {
     var xa = Axes.getFromId(gd, trace.xaxis || 'x');
     var ya = Axes.getFromId(gd, trace.yaxis || 'y');
-    var size, pos;
+    var size, pos, i;
+
+    var isWaterfall = trace.type === 'waterfall';
 
     if(trace.orientation === 'h') {
         size = xa.makeCalcdata(trace, 'x');
@@ -31,9 +33,26 @@ module.exports = function calc(gd, trace) {
     var serieslen = Math.min(pos.length, size.length);
     var cd = new Array(serieslen);
 
-    // set position and size
-    for(var i = 0; i < serieslen; i++) {
-        cd[i] = { p: pos[i], s: size[i] };
+    // set position and size (as well as for waterfall total size)
+    var previousSum = 0;
+    var previousSize = 0;
+    for(i = 0; i < serieslen; i++) {
+        cd[i] = {
+            p: pos[i],
+            s: size[i]
+        };
+
+        if(isWaterfall) {
+            if(cd[i].s === undefined) {
+                cd[i].isFall = true;
+                cd[i].sum = previousSum;
+            } else {
+                cd[i].isFall = false;
+                cd[i].sum = (i === 0) ? 0 : previousSum + previousSize;
+                previousSum = cd[i].sum;
+                previousSize = cd[i].s;
+            }
+        }
 
         if(trace.ids) {
             cd[i].id = String(trace.ids[i]);

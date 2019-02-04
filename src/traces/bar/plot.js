@@ -38,6 +38,8 @@ module.exports = function plot(gd, plotinfo, cdbar, barLayer) {
         var cd0 = cd[0];
         var trace = cd0.trace;
 
+        var isWaterfall = trace.type === 'waterfall';
+
         if(!plotinfo.isRangePlot) cd0.node3 = plotGroup;
 
         var pointGroup = Lib.ensureSingle(plotGroup, 'g', 'points');
@@ -119,11 +121,17 @@ module.exports = function plot(gd, plotinfo, cdbar, barLayer) {
                 y1 = fixpx(y1, y0);
             }
 
+            var shape;
+            if(isWaterfall && cd[i].isFall === false) {
+                shape = 'M' + x0 + ',' + y0 + 'L' + (0.5 * (x1 + x0)) + ',' + y1 + 'L' + x1 + ',' + y0 + 'Z';
+            } else {
+                shape = 'M' + x0 + ',' + y0 + 'V' + y1 + 'H' + x1 + 'V' + y0 + 'Z';
+            }
+
             Lib.ensureSingle(bar, 'path')
-                .style('vector-effect', 'non-scaling-stroke')
-                .attr('d',
-                    'M' + x0 + ',' + y0 + 'V' + y1 + 'H' + x1 + 'V' + y0 + 'Z')
-                .call(Drawing.setClipUrl, plotinfo.layerClipId, gd);
+            .style('vector-effect', 'non-scaling-stroke')
+            .attr('d', shape)
+            .call(Drawing.setClipUrl, plotinfo.layerClipId, gd);
 
             appendBarText(gd, bar, cd, i, x0, x1, y0, y1);
 

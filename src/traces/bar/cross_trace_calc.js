@@ -36,7 +36,8 @@ function crossTraceCalc(gd, plotinfo) {
         var fullTrace = fullTraces[i];
         if(
             fullTrace.visible === true &&
-            Registry.traceIs(fullTrace, 'bar') &&
+            (Registry.traceIs(fullTrace, 'bar') ||
+            Registry.traceIs(fullTrace, 'waterfall')) &&
             fullTrace.xaxis === xa._id &&
             fullTrace.yaxis === ya._id
         ) {
@@ -146,6 +147,16 @@ function initBase(gd, pa, sa, calcTraces) {
             for(j = 0; j < cd.length; j++) {
                 cd[j].b = b;
                 if(hasBase) cd[j].hasB = 1;
+            }
+        }
+
+        if(trace.type === 'waterfall') {
+            for(j = 0; j < cd.length; j++) {
+                if(cd[j].isFall === true) {
+                    cd[j].s = cd[j - 1].s + cd[j].sum;
+                } else {
+                    cd[j].b += cd[j].sum;
+                }
             }
         }
     }
