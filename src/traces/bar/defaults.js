@@ -14,7 +14,7 @@ var Color = require('../../components/color');
 var Registry = require('../../registry');
 
 var handleXYDefaults = require('../scatter/xy_defaults');
-var handleStyleDefaults = require('../bar/style_defaults');
+var handleStyleDefaults = require('./style_defaults');
 var attributes = require('./attributes');
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {

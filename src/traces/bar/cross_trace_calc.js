@@ -674,8 +674,7 @@ function collectExtents(calcTraces, pa) {
 
             if(isWaterfall) {
                 if(di.isFall === false) {
-                    var diff = (j === 0) ? 0 : cd[j - 1].s;
-                    di.s0 += diff;
+                    di.s0 += (j === 0) ? 0 : cd[j - 1].s;
                 }
             }
         }

@@ -14,10 +14,10 @@
         10,
         2,
         3,
-        null,
+        "|",
         5,
         8,
-        null
+        "|"
       ],
       "name": "first",
       "type": "waterfall",
@@ -37,10 +37,10 @@
         20,
         8,
         2,
-        null,
+        "|",
         -4,
         -10,
-        null
+        "|"
       ],
       "name": "second",
       "type": "waterfall",

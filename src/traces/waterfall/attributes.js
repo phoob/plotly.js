@@ -10,7 +10,7 @@
 
 var barAttrs = require('../bar/attributes');
 
-module.exports = {
+var attrs = {
 
     x: barAttrs.x,
     x0: barAttrs.x0,
@@ -52,3 +52,16 @@ module.exports = {
 
     _deprecated: barAttrs._deprecated,
 };
+
+attrs.marker.shape = {
+    valType: 'enumerated',
+    values: ['rectangle', 'triangle'],
+    dflt: 'rectangle',
+    role: 'style',
+    editType: 'style',
+    description: [
+        'Enables triangular bars showing the direction of the changes'
+    ].join(' ')
+};
+
+module.exports = attrs;
