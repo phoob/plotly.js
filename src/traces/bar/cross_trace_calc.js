@@ -149,7 +149,6 @@ function initBase(gd, pa, sa, calcTraces) {
                 if(hasBase) cd[j].hasB = 1;
             }
         }
-
     }
 }
 
