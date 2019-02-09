@@ -13,25 +13,33 @@ var hasColorscale = require('../../components/colorscale/helpers').hasColorscale
 var colorscaleDefaults = require('../../components/colorscale/defaults');
 
 module.exports = function handleStyleDefaults(traceIn, traceOut, coerce, defaultColor, layout) {
-    coerce('marker.color', defaultColor);
 
-    if(hasColorscale(traceIn, 'marker')) {
-        colorscaleDefaults(
-            traceIn, traceOut, layout, coerce, {prefix: 'marker.', cLetter: 'c'}
-        );
-    }
+    [
+        'marker',
+        'positiveMarker',
+        'negativeMarker'
+    ].forEach(function(marker) {
 
-    coerce('marker.line.color', Color.defaultLine);
+        coerce(marker + '.color', defaultColor);
 
-    if(hasColorscale(traceIn, 'marker.line')) {
-        colorscaleDefaults(
-            traceIn, traceOut, layout, coerce, {prefix: 'marker.line.', cLetter: 'c'}
-        );
-    }
+        if(hasColorscale(traceIn, marker)) {
+            colorscaleDefaults(
+                traceIn, traceOut, layout, coerce, {prefix: marker + '.', cLetter: 'c'}
+            );
+        }
 
-    coerce('marker.line.width');
-    coerce('marker.opacity');
-    coerce('marker.shape');
+        coerce(marker + '.line.color', Color.defaultLine);
+
+        if(hasColorscale(traceIn, marker + '.line')) {
+            colorscaleDefaults(
+                traceIn, traceOut, layout, coerce, {prefix: marker + '.line.', cLetter: 'c'}
+            );
+        }
+
+        coerce(marker + '.line.width');
+        coerce(marker + '.opacity');
+        coerce(marker + '.shape');
+    });
 
     coerce('selected.marker.color');
     coerce('unselected.marker.color');

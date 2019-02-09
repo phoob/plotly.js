@@ -145,9 +145,20 @@ function hoverPoints(pointData, xval, yval, hovermode) {
 }
 
 function getTraceColor(trace, di) {
-    var mc = di.mcc || trace.marker.color;
-    var mlc = di.mlcc || trace.marker.line.color;
-    var mlw = di.mlw || trace.marker.line.width;
+
+    var marker = trace.marker;
+
+    if(trace.type === 'waterfall' && di.isFall === false) {
+        if(di.s0 < di.s1) {
+            marker = trace.positiveMarker || trace.marker;
+        } else {
+            marker = trace.negativeMarker || trace.marker;
+        }
+    }
+
+    var mc = di.mcc || marker.color;
+    var mlc = di.mlcc || marker.line.color;
+    var mlw = di.mlw || marker.line.width;
 
     if(Color.opacity(mc)) return mc;
     else if(Color.opacity(mlc) && mlw) return mlc;

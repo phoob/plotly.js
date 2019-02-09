@@ -8,9 +8,58 @@
 
 'use strict';
 
+var extendFlat = require('../../lib/extend').extendFlat;
+var colorAttributes = require('../../components/colorscale/attributes');
+var colorbarAttrs = require('../../components/colorbar/attributes');
+
 var barAttrs = require('../bar/attributes');
 
-var attrs = {
+var scatterAttrs = require('../scatter/attributes');
+var scatterMarkerAttrs = scatterAttrs.marker;
+var scatterMarkerLineAttrs = scatterMarkerAttrs.line;
+
+var markerLineWidth = extendFlat({},
+    scatterMarkerLineAttrs.width, { dflt: 0 });
+
+var markerLine = extendFlat({
+    width: markerLineWidth,
+    editType: 'calc'
+}, colorAttributes('marker.line'));
+
+var marker = extendFlat({
+    line: markerLine,
+    editType: 'calc',
+    shape: {
+        valType: 'enumerated',
+        values: ['rectangle', 'triangle'],
+        dflt: 'rectangle',
+        role: 'style',
+        editType: 'style',
+        description: [
+            'Defines the shape of positive/negative bars on the plot.',
+            'Namely \'triangle`\ option could be used to emphasize on',
+            'the direction of the changes.'
+        ].join(' ')
+    }
+}, colorAttributes('marker'), {
+    colorbar: colorbarAttrs,
+    opacity: {
+        valType: 'number',
+        arrayOk: true,
+        dflt: 1,
+        min: 0,
+        max: 1,
+        role: 'style',
+        editType: 'style',
+        description: 'Sets the opacity of the bars.'
+    }
+});
+
+module.exports = {
+
+    marker: marker,
+    positiveMarker: marker,
+    negativeMarker: marker,
 
     x: barAttrs.x,
     x0: barAttrs.x0,
@@ -18,6 +67,9 @@ var attrs = {
     y: barAttrs.y,
     y0: barAttrs.y0,
     dy: barAttrs.dy,
+
+    r: barAttrs.r,
+    t: barAttrs.t,
 
     text: barAttrs.text,
     hovertext: barAttrs.hovertext,
@@ -42,26 +94,7 @@ var attrs = {
     offset: barAttrs.offset,
 
     width: barAttrs.width,
-    marker: barAttrs.marker,
 
     selected: barAttrs.selected,
-    unselected: barAttrs.unselected,
-
-    r: barAttrs.r,
-    t: barAttrs.t,
-
-    _deprecated: barAttrs._deprecated,
+    unselected: barAttrs.unselected
 };
-
-attrs.marker.shape = {
-    valType: 'enumerated',
-    values: ['rectangle', 'triangle'],
-    dflt: 'rectangle',
-    role: 'style',
-    editType: 'style',
-    description: [
-        'Enables triangular bars showing the direction of the changes'
-    ].join(' ')
-};
-
-module.exports = attrs;
