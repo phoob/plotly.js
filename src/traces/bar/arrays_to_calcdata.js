@@ -19,24 +19,15 @@ module.exports = function arraysToCalcdata(cd, trace) {
     mergeArray(trace.text, cd, 'tx');
     mergeArray(trace.hovertext, cd, 'htx');
 
-    function addMarker(marker, prefix) {
-        var marker = trace.marker;
-        if(marker) {
-            mergeArray(marker.opacity, cd, prefix + 'mo');
-            mergeArray(marker.color, cd, prefix + 'mc');
+    var marker = trace.marker;
+    if(marker) {
+        mergeArray(marker.opacity, cd, 'mo');
+        mergeArray(marker.color, cd, 'mc');
 
-            var markerLine = marker.line;
-            if(markerLine) {
-                mergeArray(markerLine.color, cd, prefix + 'mlc');
-                mergeArray(markerLine.width, cd, prefix + 'mlw');
-            }
+        var markerLine = marker.line;
+        if(markerLine) {
+            mergeArray(markerLine.color, cd, 'mlc');
+            mergeArray(markerLine.width, cd, 'mlw');
         }
-    }
-
-    addMarker(trace.marker, '');
-
-    if(trace.type === 'waterfall') {
-        addMarker(trace.positiveMarker, 'wp');
-        addMarker(trace.negativeMarker, 'wn');
     }
 };
